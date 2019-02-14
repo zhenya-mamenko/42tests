@@ -1,6 +1,6 @@
 clear
 make -s
-./build_$1 > /dev/null
+./build_$1 $2 > /dev/null
 echo "\n\x1b[1mStart testing: \x1b[4;96m$1\x1b[0m\n"
 ./test
 rm test > /dev/null

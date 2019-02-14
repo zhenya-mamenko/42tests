@@ -1,4 +1,3 @@
-P=/nfs/2018/e/emamenko/projects/libft
 dir=$(pwd)
-cd $P && make && cd $dir
-gcc -Wall -Werror -Wextra -o test -ltest -L. -lft -L$P test_libft.c
+cd $1 && make && cd $dir
+gcc -Wall -Werror -Wextra -o test -ltest -L. -lft -L$1 test_libft.c

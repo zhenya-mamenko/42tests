@@ -58,7 +58,7 @@ int	run_test(char *description, int count, ...)
 	va_end(arg_ptr);
 	printf("  --\n  ");
 	print_result(result == count ? 1 : 0);
-	printf("\n\n");
+	printf(" \x1b[39;1m%d/%d\x1b[0m\n\n", result, count);
 	return (result == count ? 1 : 0);
 }
 
@@ -70,7 +70,7 @@ char	*test_description(char *description)
 
 int	expect(char *name, int type, ...)
 {
-	int		result, i, l, i_a1, i_a2;
+	int		result, l, i_a1, i_a2;
 	char	*b, c_a1, c_a2, *s_a1, *s_a2;
 	va_list	arg_ptr;
 
@@ -122,19 +122,7 @@ int	expect(char *name, int type, ...)
 		if (s_a1 == NULL || s_a2 == NULL)
 			result = (s_a1 == s_a2) ? 1 : 0;
 		else
-		{
-			i = 0;
-			result = 1;
-			while (i < l)
-			{
-				if (s_a1[i] != s_a2[i])
-				{
-					result = 0;
-					break;
-				}
-				i += 1;
-			}
-		}
+			result = memcmp(s_a1, s_a2, l) == 0 ? 1 : 0;
 		print_result(result);
 		printf(".\n");
 	}
