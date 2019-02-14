@@ -1,1 +1,4 @@
-gcc -Wall -Werror -Wextra -o test -ltest -L. -lft -L/nfs/2018/e/emamenko/projects/libft test_libft.c
+P=/nfs/2018/e/emamenko/projects/libft
+dir=$(pwd)
+cd $P && make && cd $dir
+gcc -Wall -Werror -Wextra -o test -ltest -L. -lft -L$P test_libft.c

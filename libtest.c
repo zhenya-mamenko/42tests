@@ -6,13 +6,9 @@
 static void print_result(result)
 {
 	if (result == 1)
-	{
 		printf("\x1b[92;1mOK\x1b[0m");
-	}
 	else
-	{
 		printf("\x1b[91;1mFAIL\x1b[0m");
-	}
 }
 
 char	*make_buf(size_t len, char c)
@@ -45,7 +41,7 @@ char	*make_string(char *src)
 	return (dest);
 }
 
-void	run_test(char *description, int count, ...)
+int	run_test(char *description, int count, ...)
 {
 	va_list	arg_ptr;
 	int		i, result;
@@ -63,6 +59,7 @@ void	run_test(char *description, int count, ...)
 	printf("  --\n  ");
 	print_result(result == count ? 1 : 0);
 	printf("\n\n");
+	return (result == count ? 1 : 0);
 }
 
 char	*test_description(char *description)
@@ -107,7 +104,10 @@ int	expect(char *name, int type, ...)
 	{
 		s_a1 = va_arg(arg_ptr, char*);
 		s_a2 = va_arg(arg_ptr, char*);
-		result = strcmp(s_a1, s_a2) == 0 ? 1 : 0;
+		if (s_a1 == NULL || s_a2 == NULL)
+			result = (s_a1 == s_a2) ? 1 : 0;
+		else
+			result = strcmp(s_a1, s_a2) == 0 ? 1 : 0;
 		print_result(result);
 		if (result == 0)
 			printf(". Value: \x1b[1m%s\x1b[0m Expected: \x1b[1m%s\x1b[0m\n", s_a1, s_a2);
@@ -119,16 +119,21 @@ int	expect(char *name, int type, ...)
 		l = va_arg(arg_ptr, int);
 		s_a1 = va_arg(arg_ptr, char*);
 		s_a2 = va_arg(arg_ptr, char*);
-		i = 0;
-		result = 1;
-		while (i < l)
+		if (s_a1 == NULL || s_a2 == NULL)
+			result = (s_a1 == s_a2) ? 1 : 0;
+		else
 		{
-			if (s_a1[i] != s_a2[i])
+			i = 0;
+			result = 1;
+			while (i < l)
 			{
-				result = 0;
-				break;
+				if (s_a1[i] != s_a2[i])
+				{
+					result = 0;
+					break;
+				}
+				i += 1;
 			}
-			i += 1;
 		}
 		print_result(result);
 		printf(".\n");
