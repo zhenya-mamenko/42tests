@@ -1,0 +1,7 @@
+clear
+make -s
+./build_$1 > /dev/null
+./test
+rm test > /dev/null
+make fclean -s
+echo "\n"
