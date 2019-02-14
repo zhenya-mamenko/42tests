@@ -2,16 +2,32 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
+#include "libtest.h"
 
-static void print_result(result)
+int		g_test_level = 0;
+
+void	margin(void)
 {
+	int	i;
+
+	i = 0;
+	while (i < g_test_level)
+	{
+		printf("\t");
+		i += 1;
+	}
+}
+
+static void	print_result(result)
+{
+	margin();
 	if (result == 1)
 		printf("\x1b[92;1mOK\x1b[0m");
 	else
 		printf("\x1b[91;1mFAIL\x1b[0m");
 }
 
-char	*make_buf(size_t len, char c)
+char		*make_buf(size_t len, char c)
 {
 	char	*b;
 	size_t	i;
@@ -26,7 +42,7 @@ char	*make_buf(size_t len, char c)
 	return(b);
 }
 
-char	*make_string(char *src)
+char		*make_string(char *src)
 {
 	char	*dest;
 	int		i;
@@ -41,14 +57,14 @@ char	*make_string(char *src)
 	return (dest);
 }
 
-char	*wrapper_char(void *stub, char *value)
+char		*wrapper_char(void *stub, char *value)
 {
 	if (stub == NULL)
 		;
 	return (value);
 }
 
-int	run_test(char *description, int count, ...)
+int		run_test(char *description, int count, ...)
 {
 	va_list	arg_ptr;
 	int		i, result;
@@ -63,25 +79,30 @@ int	run_test(char *description, int count, ...)
 		i += 1;
 	}
 	va_end(arg_ptr);
-	printf("  --\n  ");
+	margin();
+	printf("--\n  ");
 	print_result(result == count ? 1 : 0);
 	printf(" \x1b[39;1m%d/%d\x1b[0m\n\n", result, count);
+	g_test_level--;
 	return (result == count ? 1 : 0);
 }
 
-char	*test_description(char *description)
+char		*test_description(char *description)
 {
+	g_test_level++;
+	margin();
 	printf("\x1b[94;1m%s\x1b[0m\n", description);
 	return (description);
 }
 
-int	expect(char *name, int type, ...)
+int			expect(char *name, int type, ...)
 {
 	int		result, l, i_a1, i_a2;
 	char	*b, c_a1, c_a2, *s_a1, *s_a2;
 	va_list	arg_ptr;
 
 	b = malloc(sizeof(char) * 1000);
+	margin();
 	printf("  %s", name);
 	va_start(arg_ptr, type);
 	result = 0;
