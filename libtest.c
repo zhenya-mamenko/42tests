@@ -15,9 +15,19 @@ static void print_result(result)
 	}
 }
 
-char	*make_buf(size_t len)
+char	*make_buf(size_t len, char c)
 {
-	return(malloc(sizeof(char) * len));
+	char	*b;
+	size_t	i;
+
+	b = malloc(sizeof(char) * len);
+	i = 0;
+	while (i < len)
+	{
+		b[i] = c;
+		i += 1;
+	}
+	return(b);
 }
 
 char	*make_string(char *src)
@@ -63,7 +73,7 @@ char	*test_description(char *description)
 
 int	expect(char *name, int type, ...)
 {
-	int		result, i_a1, i_a2;
+	int		result, i, l, i_a1, i_a2;
 	char	*b, c_a1, c_a2, *s_a1, *s_a2;
 	va_list	arg_ptr;
 
@@ -93,7 +103,7 @@ int	expect(char *name, int type, ...)
 		else
 			printf(".\n");
 	}
-	else if (type == 3) // char*
+	else if (type == 3) // string
 	{
 		s_a1 = va_arg(arg_ptr, char*);
 		s_a2 = va_arg(arg_ptr, char*);
@@ -103,6 +113,25 @@ int	expect(char *name, int type, ...)
 			printf(". Value: \x1b[1m%s\x1b[0m Expected: \x1b[1m%s\x1b[0m\n", s_a1, s_a2);
 		else
 			printf(".\n");
+	}
+	else if (type == 4) // char*
+	{
+		l = va_arg(arg_ptr, int);
+		s_a1 = va_arg(arg_ptr, char*);
+		s_a2 = va_arg(arg_ptr, char*);
+		i = 0;
+		result = 1;
+		while (i < l)
+		{
+			if (s_a1[i] != s_a2[i])
+			{
+				result = 0;
+				break;
+			}
+			i += 1;
+		}
+		print_result(result);
+		printf(".\n");
 	}
 	
 	va_end(arg_ptr);

@@ -5,7 +5,7 @@
 
 int main(void)
 {
-	printf("\x1b[1mStart testing: \x1b[4;96mlibft\x1b[0m\n\n");
+	char	*a1, *a2;
 
 	run_test(test_description("isalpha"), 3,
 		expect("1:\t", 1, ft_isalpha('1'), isalpha('1')),
@@ -44,26 +44,29 @@ int main(void)
 		expect("f:\t", 1, ft_tolower('f'), tolower('f')),
 		expect("A:\t", 1, ft_tolower('A'), tolower('A'))
 		);
+
 	run_test(test_description("memset"), 1,
 		expect("10:\t", 3, ft_memset(make_string("ABCDEABCDE"), 'x', 10), ft_memset(make_string("ABCDEABCDE"), 'x', 10))
 		);
-	/*
-	printf("isalpha=%d -- ft_isalpha=%d\n", isalpha('f'), ft_isalpha('f'));
-	printf("isalpha=%d -- ft_isalpha=%d\n", isalpha(33), ft_isalpha(33));
-	printf("isdigit=%d -- ft_isdigit=%d\n", isdigit('0'), ft_isdigit('0'));
-	printf("isdigit=%d -- ft_isdigit=%d\n", isdigit(33), ft_isdigit(33));
-	printf("isalnum=%d -- ft_isalnum=%d\n", isalnum('f'), ft_isalnum('f'));
-	printf("isalnum=%d -- ft_isalnum=%d\n", isalnum('0'), ft_isalnum('0'));
-	printf("isalnum=%d -- ft_isalnum=%d\n", isalnum(33), ft_isalnum(33));
-	printf("isascii=%d -- ft_isascii=%d\n", isascii('0'), ft_isascii('0'));
-	printf("isascii=%d -- ft_isascii=%d\n", isascii(180), ft_isascii(180));
-	printf("isprint=%d -- ft_isprint=%d\n", isprint('0'), ft_isprint('0'));
-	printf("isprint=%d -- ft_isprint=%d\n", isprint(127), ft_isprint(127));
-	printf("isprint=%d -- ft_isprint=%d\n", isprint(15), ft_isprint(15));
-	printf("toupper=%c -- ft_toupper=%c\n", toupper('a'), ft_toupper('a'));
-	printf("toupper=%c -- ft_toupper=%c\n", toupper('F'), ft_toupper('F'));
-	printf("tolower=%c -- ft_tolower=%c\n", tolower('a'), ft_tolower('a'));
-	printf("tolower=%c -- ft_tolower=%c\n", tolower('F'), ft_tolower('F'));
-	printf("memset=%s -- ft_memset=%s\n", (char*)memset(b1, 'x', 10), (char*)ft_memset(b2, 'x', 10));*/
-	return 0;
+
+	a1 = make_buf(10, 'A'); ft_bzero(a1, 10);
+	a2 = make_buf(10, 'A'); bzero(a2, 10);
+	run_test(test_description("bzero"), 1,
+		expect("10:\t", 4, 10, a1, a2)
+		);
+
+	ft_memcpy(a1, "1234567890", 10);
+	memcpy(a2, "1234567890", 10);
+	run_test(test_description("memcpy"), 1,
+		expect("10:\t", 4, 10, a1, a2)
+		);
+
+	bzero(a1, 10); bzero(a2, 10);
+	ft_memccpy(a1, "123456789\0", '7', 10);
+	memccpy(a2, "123456789\0", '7', 10);
+	run_test(test_description("memccpy"), 1,
+		expect("10:\t", 4, 10, a1, a2)
+		);
+
+	return (0);
 }
