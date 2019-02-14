@@ -6,7 +6,7 @@
 /*   By: emamenko <emamenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 10:55:08 by emamenko          #+#    #+#             */
-/*   Updated: 2019/02/13 18:51:26 by emamenko         ###   ########.fr       */
+/*   Updated: 2019/02/14 12:58:07 by emamenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ char	*test_description(char *description);
 int		run_test(char *description, int count, ...);
 char	*make_buf(size_t len, char c);
 char	*make_string(char *src);
+char	*wrapper_char(void *stub, char *value);
 
 #endif

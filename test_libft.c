@@ -94,13 +94,48 @@ int main(void)
 
 	memcpy(a1, "123\0", 10);
 	memcpy(a2, "123\0", 10);
-	ft_strcat(a1, "456789");
-	strcat(a2, "456789");
 	all++;
 	count += run_test(test_description("strncat"), 3,
-		expect("1234:\t\t", 3, a1, a2),
-		expect("1234:\t\t", 3, a1, a2),
-		expect("123456:\t", 3, a1, a2)
+		expect("1:\t\t", 3, wrapper_char(ft_strncat(a1, "456789", 1), a1), wrapper_char(strncat(a2, "456789", 1), a2)),
+		expect("0:\t\t", 3, wrapper_char(ft_strncat(a1, "456789", 0), a1), wrapper_char(strncat(a2, "456789", 0), a2)),
+		expect("10:\t", 3, wrapper_char(ft_strncat(a1, "56789", 10), a1), wrapper_char(strncat(a2, "56789", 10), a2))
+		);
+
+	memcpy(a1, "123\0", 10);
+	memcpy(a2, "123\0", 10);
+	all++;
+	count += run_test(test_description("strlcat"), 1,
+		expect("1:\t\t", 1, ft_strlcat(a1, "123456789", 10), strlcat(a2, "123456789", 10))
+		);
+
+	all++;
+	count += run_test(test_description("strchr"), 4,
+		expect("found:\t", 3, ft_strchr("123456789", '4'), strchr("123456789", '4')),
+		expect("none:\t", 3, ft_strchr("123456789", '0'), strchr("123456789", '0')),
+		expect("empty:\t", 3, ft_strchr("", '1'), strchr("", '1')),
+		expect("0:\t\t", 3, ft_strchr("123456789", '\0'), strchr("123456789", '\0'))
+		);
+
+	all++;
+	count += run_test(test_description("strchr"), 4,
+		expect("found:\t", 3, ft_strrchr("1234564789", '4'), strrchr("1234564789", '4')),
+		expect("none:\t", 3, ft_strrchr("123456789", '0'), strrchr("123456789", '0')),
+		expect("empty:\t", 3, ft_strrchr("", '1'), strrchr("", '1')),
+		expect("0:\t\t", 3, ft_strrchr("123456789", '\0'), strrchr("123456789", '\0'))
+		);
+
+	all++;
+	count += run_test(test_description("strstr"), 3,
+		expect("found:\t", 3, ft_strstr("1234564789", "47"), strstr("1234564789", "47")),
+		expect("none:\t", 3, ft_strstr("123456789", "80"), strstr("123456789", "80")),
+		expect("empty:\t", 3, ft_strstr("123456789", ""), strstr("123456789", ""))
+		);
+
+	all++;
+	count += run_test(test_description("strnstr"), 3,
+		expect("found:\t", 3, ft_strnstr("1234564789", "23", 5), strnstr("1234564789", "23", 5)),
+		expect("none:\t", 3, ft_strnstr("123456789", "78", 5), strnstr("123456789", "78", 5)),
+		expect("empty:\t", 3, ft_strnstr("123456789", "", 5), strnstr("123456789", "", 5))
 		);
 
 	all++;

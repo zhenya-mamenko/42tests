@@ -41,6 +41,13 @@ char	*make_string(char *src)
 	return (dest);
 }
 
+char	*wrapper_char(void *stub, char *value)
+{
+	if (stub == NULL)
+		;
+	return (value);
+}
+
 int	run_test(char *description, int count, ...)
 {
 	va_list	arg_ptr;
