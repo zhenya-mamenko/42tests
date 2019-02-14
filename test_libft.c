@@ -83,6 +83,26 @@ int main(void)
 		expect("0:\t\t", 3, ft_strncpy(make_string("ABCDEABCDE"), "12345", 0), strncpy(make_string("ABCDEABCDE"), "12345", 0))
 		);
 
+	memcpy(a1, "123\0", 10);
+	memcpy(a2, "123\0", 10);
+	ft_strcat(a1, "456");
+	strcat(a2, "456");
+	all++;
+	count += run_test(test_description("strcat"), 1,
+		expect("123456:\t", 3, a1, a2)
+		);
+
+	memcpy(a1, "123\0", 10);
+	memcpy(a2, "123\0", 10);
+	ft_strcat(a1, "456789");
+	strcat(a2, "456789");
+	all++;
+	count += run_test(test_description("strncat"), 3,
+		expect("1234:\t\t", 3, a1, a2),
+		expect("1234:\t\t", 3, a1, a2),
+		expect("123456:\t", 3, a1, a2)
+		);
+
 	all++;
 	count += run_test(test_description("isalpha"), 3,
 		expect("1:\t\t", 1, ft_isalpha('1'), isalpha('1')),
