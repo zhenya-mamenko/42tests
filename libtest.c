@@ -4,7 +4,7 @@
 #include <stdarg.h>
 #include "libtest.h"
 
-int		g_test_level = 0;
+int		g_test_level = -1;
 
 void	margin(void)
 {
@@ -80,7 +80,7 @@ int		run_test(char *description, int count, ...)
 	}
 	va_end(arg_ptr);
 	margin();
-	printf("--\n  ");
+	printf("--\n");
 	print_result(result == count ? 1 : 0);
 	printf(" \x1b[39;1m%d/%d\x1b[0m\n\n", result, count);
 	g_test_level--;
