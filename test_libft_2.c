@@ -135,6 +135,23 @@ int			test_part2(void)
 		expect("123789:", 3, ft_strjoin("123", "789"), "123789")
 		);
 
+	all++;
+	count += run_test(test_description("ft_strtrim"), 6,
+		expect("head:\t", 3, ft_strtrim("   0123456789"), "0123456789"),
+		expect("trail:", 3, ft_strtrim("0123456789\t \n"), "0123456789"),
+		expect("both:\t", 3, ft_strtrim("\t0123456789\n"), "0123456789"),
+		expect("none:\t", 3, ft_strtrim("0123456789"), "0123456789"),
+		expect("middle:", 3, ft_strtrim(" 0123  456 789\t"), "0123  456 789"),
+		expect("all:\t", 3, ft_strtrim("   \n   \t  \n"), NULL)
+		);
+
+	all++;
+	count += run_test(test_description("ft_strsplit"), 2,
+		expect("simple:", 3, ft_strsplit("aaxbb", 'x'), "aa\nbb\n"),
+		expect("multiple:", 3, ft_strsplit("aXXXbbXccc", 'X'), "a\nbb\nccc\n"),
+		expect("head&trail:", 3, ft_strsplit("*aaa**ccc*", '*'), "aaa\nccc\n")
+	);
+
 	margin();
 	printf("    --\n");
 	margin();

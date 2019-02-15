@@ -6,7 +6,7 @@
 /*   By: emamenko <emamenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 10:55:08 by emamenko          #+#    #+#             */
-/*   Updated: 2019/02/14 14:30:41 by emamenko         ###   ########.fr       */
+/*   Updated: 2019/02/14 16:52:29 by emamenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ char	*make_buf(size_t len, char c);
 char	*make_string(char *src);
 char	*wrapper_char(void *stub, char *value);
 void	margin(void);
+char	*flatten_array(char **a);
 
 #endif

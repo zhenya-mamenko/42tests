@@ -6,6 +6,34 @@
 
 int		g_test_level = -1;
 
+char	*flatten_array(char **a)
+{
+	int		i;
+	int		len;
+	char	*s;
+
+	i = 0;
+	len = 0;
+	while (a[i])
+	{
+		len += strlen(a[i]) + 1;
+		i += 1;
+	}
+	len++;
+	s = malloc(sizeof(char) * len);
+	i = 0;
+	len = 0;
+	while (a[i])
+	{
+		strcpy(s[len], a[i]);
+		len += strlen(a[i]);
+		s[len++] = '\n';
+		i += 1;
+	}
+	s[len] = '\0';
+	return (s);
+}
+
 void	margin(void)
 {
 	int	i;
@@ -98,7 +126,7 @@ char		*test_description(char *description)
 int			expect(char *name, int type, ...)
 {
 	int		result, l, i_a1, i_a2;
-	char	*b, c_a1, c_a2, *s_a1, *s_a2;
+	char	*b, c_a1, c_a2, *s_a1, *s_a2, **a1, **a2;
 	va_list	arg_ptr;
 
 	b = malloc(sizeof(char) * 1000);
@@ -153,6 +181,20 @@ int			expect(char *name, int type, ...)
 			result = memcmp(s_a1, s_a2, l) == 0 ? 1 : 0;
 		print_result(result);
 		printf(".\n");
+	}
+	else if (type == 5) // array of string
+	{
+		a1 = va_arg(arg_ptr, char**);
+		s_a1 = va_arg(arg_ptr, char*);
+		if (s_a1 == NULL || s_a2 == NULL)
+			result = (s_a1 == s_a2) ? 1 : 0;
+		else
+			result = strcmp(flatten_array(a1), s_a1) == 0 ? 1 : 0;
+		print_result(result);
+		if (result == 0)
+			printf(". Value: \x1b[1m%s\x1b[0m Expected: \x1b[1m%s\x1b[0m\n", s_a1, s_a2);
+		else
+			printf(".\n");
 	}
 	
 	va_end(arg_ptr);
