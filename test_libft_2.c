@@ -161,6 +161,23 @@ int			test_part2(void)
 		expect("2^31-1:", 3, ft_itoa(2147483647), "2147483647")
 	);
 
+	a1 = ft_strnew(BUFSIZ);
+	
+	freopen("/dev/null", "w", stdout);
+	setbuf(stdout, a1);
+	ft_putchar('X');
+	//fflush(stdout);
+	//ft_putstr("123456789");
+	freopen ("/dev/tty", "a", stdout);
+	printf("a=%s\n", a1);
+	all++;
+	count += run_test(test_description("ft_putchar"), 1,
+		expect("X:\t", 3, a1, "X")
+		);
+	ft_strclr(a1);
+
+	
+
 	margin();
 	printf("    --\n");
 	margin();
