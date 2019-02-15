@@ -146,10 +146,19 @@ int			test_part2(void)
 		);
 
 	all++;
-	count += run_test(test_description("ft_strsplit"), 2,
-		expect("simple:", 3, ft_strsplit("aaxbb", 'x'), "aa\nbb\n"),
-		expect("multiple:", 3, ft_strsplit("aXXXbbXccc", 'X'), "a\nbb\nccc\n"),
-		expect("head&trail:", 3, ft_strsplit("*aaa**ccc*", '*'), "aaa\nccc\n")
+	count += run_test(test_description("ft_strsplit"), 3,
+		expect("simple:", 5, ft_strsplit("aaxbb", 'x'), "aa\nbb\n"),
+		expect("multiple:", 5, ft_strsplit("aXXXbbXccc", 'X'), "a\nbb\nccc\n"),
+		expect("head&trail:", 5, ft_strsplit("*aaa**ccc*", '*'), "aaa\nccc\n")
+	);
+
+	all++;
+	count += run_test(test_description("ft_itoa"), 5,
+		expect("0:\t", 3, ft_itoa(0), "0"),
+		expect("42:\t", 3, ft_itoa(42), "42"),
+		expect("-42:\t", 3, ft_itoa(-42), "-42"),
+		expect("-2^31:", 3, ft_itoa(-2147483648), "-2147483648"),
+		expect("2^31-1:", 3, ft_itoa(2147483647), "2147483647")
 	);
 
 	margin();
