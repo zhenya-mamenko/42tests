@@ -2,6 +2,41 @@
 #include "libtest.h"
 #include <stdio.h>
 
+char	*flatten_tlist(t_list *lst, int type)
+{
+	int		i;
+	int		len;
+	char	*s;
+	t_list	*el;
+
+	i = 0;
+	len = 0;
+	el = lst;
+	if (el == NULL)
+		return (make_string("(null)"));
+	while (el)
+	{
+		len += el->content_size + 1;
+		el = el->next;
+	}
+	len++;
+	s = malloc(sizeof(char) * len);
+	i = 0;
+	len = 0;
+	el = lst;
+	while (el)
+	{
+		memcpy(&s[len], el->content, el->content_size);
+		len += el->content_size;
+		s[len++] = '\n';
+		i += 1;
+		el = el->next;
+	}
+	s[len] = '\0';
+	return (s);
+}
+
+
 static int	check_zeros(char *b, int size)
 {
 	int	i;
@@ -39,13 +74,13 @@ static char	fiterci(unsigned int i, char c)
 }
 
 
-int			test_part2(void)
+int			test_bonus(void)
 {
 	char	*a1;
 	int		count, all;
 
 	margin();
-	printf("    \x1b[1;39mpart 2\x1b[0m\n");
+	printf("    \x1b[1;39mbonus\x1b[0m\n");
 
 	count = 0;
 	all = 0;

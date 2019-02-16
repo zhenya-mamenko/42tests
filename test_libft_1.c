@@ -142,10 +142,11 @@ int test_part1(void)
 		);
 
 	all++;
-	count += run_test(test_description("strcmp"), 3,
+	count += run_test(test_description("strcmp"), 4,
 		expect("less:\t", 1, ft_strcmp("1234", "1235"), strcmp("1234", "1235")),
 		expect("equal:", 1, ft_strcmp("1234", "1234"), strcmp("1234", "1234")),
-		expect("greater:", 1, ft_strcmp("12369", "1234"), strcmp("12369", "1234"))
+		expect("greater:", 1, ft_strcmp("12369", "1234"), strcmp("12369", "1234")),
+		expect("a - ab:", 1, ft_strcmp("a", "ab"), strcmp("a", "ab"))
 		);
 
 	all++;

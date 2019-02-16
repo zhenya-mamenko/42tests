@@ -6,6 +6,7 @@
 
 int main(void)
 {
+
 	run_test(test_description("\x1b[95mlibft"), 3,
 		test_part1(),
 		test_part2(),

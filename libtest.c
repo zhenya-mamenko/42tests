@@ -6,7 +6,38 @@
 
 int		g_test_level = -1;
 
-char	*flatten_array(char **a)
+static void	r_itoa(long nb, char *s, int *index)
+{
+	if (nb < 0)
+	{
+		s[(*index)++] = '-';
+		r_itoa(-nb, s, index);
+	}
+	else if (nb > 9)
+	{
+		r_itoa(nb / 10, s, index);
+		r_itoa(nb % 10, s, index);
+	}
+	else
+	{
+		s[(*index)++] = nb + '0';
+	}
+	s[*index] = '\0';
+}
+
+static char		*itoa(long n)
+{
+	char	*s;
+	int		i;
+
+	i = 0;
+	s = make_buf(12, '\0');
+	if (s != NULL)
+		r_itoa(n, s, &i);
+	return (s);
+}
+
+char	*flatten_array_char(char **a)
 {
 	int		i;
 	int		len;
@@ -33,6 +64,79 @@ char	*flatten_array(char **a)
 	s[len] = '\0';
 	return (s);
 }
+
+char	*flatten_array_int(int *a, size_t n)
+{
+	size_t	i;
+	int		len;
+	char	*s, *e;
+
+	s = make_buf(n * 12 + 1, '\0');
+	i = 0;
+	len = 0;
+	while (i < n)
+	{
+		e = itoa(a[i]);
+		strcpy(&s[len], e);
+		len += strlen(e);
+		free(e);
+		s[len++] = '\t';
+		i += 1;
+	}
+	s[len--] = '\0';
+	e = strdup(s);
+	free(s);
+	return (e);
+}
+
+char	*flatten_array_uint(unsigned int *a, size_t n)
+{
+	size_t	i;
+	int		len;
+	char	*s, *e;
+
+	s = make_buf(n * 12 + 1, '\0');
+	i = 0;
+	len = 0;
+	while (i < n)
+	{
+		e = itoa(a[i]);
+		strcpy(&s[len], e);
+		len += strlen(e);
+		free(e);
+		s[len++] = '\t';
+		i += 1;
+	}
+	s[len--] = '\0';
+	e = strdup(s);
+	free(s);
+	return (e);
+}
+
+char	*flatten_array_uchar(unsigned char *a, size_t n)
+{
+	size_t	i;
+	int		len;
+	char	*s, *e;
+
+	s = make_buf(n * 3 + 1, '\0');
+	i = 0;
+	len = 0;
+	while (i < n)
+	{
+		e = itoa(a[i]);
+		strcpy(&s[len], e);
+		len += strlen(e);
+		free(e);
+		s[len++] = '\t';
+		i += 1;
+	}
+	s[len--] = '\0';
+	e = strdup(s);
+	free(s);
+	return (e);
+}
+
 
 void	margin(void)
 {
