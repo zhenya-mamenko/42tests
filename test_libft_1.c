@@ -56,9 +56,11 @@ int test_part1(void)
 		);
 
 	all++;
-	count += run_test(test_description("memcmp"), 2,
+	count += run_test(test_description("memcmp"), 4,
 		expect("same:\t", 1, ft_memcmp("ABCDEABCDE", "ABCDEABCDE", 10), memcmp("ABCDEABCDE", "ABCDEABCDE", 10)),
 		expect("diff:\t", 1, ft_memcmp("ABCDEABCDE", "ABCDE1BCDE", 10), memcmp("ABCDEABCDE", "ABCDE1BCDE", 10)),
+		expect("bin:\t", 1, ft_memcmp("\xff\xaa\xde\xffMACOSX\xff", "\xff\xaa\xde\x02", 10),
+			memcmp("\xff\xaa\xde\xffMACOSX\xff", "\xff\xaa\xde\x02", 10)),
 		expect("empty:", 1, ft_memcmp("", "", 0), memcmp("", "", 0))
 		);
 
@@ -95,8 +97,8 @@ int test_part1(void)
 		expect("123456:", 3, a1, a2)
 		);
 
-	memcpy(a1, "123\0", 10);
-	memcpy(a2, "123\0", 10);
+	memcpy(a1, "123\0", 4);
+	memcpy(a2, "123\0", 4);
 	all++;
 	count += run_test(test_description("strncat"), 3,
 		expect("1:\t", 3, wrapper_char(ft_strncat(a1, "456789", 1), a1), wrapper_char(strncat(a2, "456789", 1), a2)),
@@ -104,11 +106,17 @@ int test_part1(void)
 		expect("10:\t", 3, wrapper_char(ft_strncat(a1, "56789", 10), a1), wrapper_char(strncat(a2, "56789", 10), a2))
 		);
 
-	memcpy(a1, "123\0", 10);
-	memcpy(a2, "123\0", 10);
+	memcpy(a1, "ABC\0", 4);
+	memcpy(a2, "ABC\0", 4);
 	all++;
-	count += run_test(test_description("strlcat"), 1,
-		expect("1:\t", 1, ft_strlcat(a1, "123456789", 10), strlcat(a2, "123456789", 10))
+	count += run_test(test_description("strlcat"), 5,
+		expect("0:\t", 1, ft_strlcat(a1, "Z", 0), strlcat(a2, "Z", 0)),
+		expect("0=:\t", 3, a1, a2),
+		expect("0v:\t", 3, wrapper_char(ft_strlcat(a1, "X", 0), a1),
+			wrapper_char(strlcat(a2, "X", 0), a2)),
+		expect("5:\t", 1, ft_strlcat(a1, "qwerty", 8), strlcat(a2, "qwerty", 8)),
+		expect("5v:\t", 3, wrapper_char(ft_strlcat(a1, "poi", 10), a1),
+			wrapper_char(strlcat(a2, "poi", 10), a2))
 		);
 
 	all++;
@@ -120,7 +128,7 @@ int test_part1(void)
 		);
 
 	all++;
-	count += run_test(test_description("strchr"), 4,
+	count += run_test(test_description("strrchr"), 4,
 		expect("found:", 3, ft_strrchr("1234564789", '4'), strrchr("1234564789", '4')),
 		expect("none:\t", 3, ft_strrchr("123456789", '0'), strrchr("123456789", '0')),
 		expect("empty:", 3, ft_strrchr("", '1'), strrchr("", '1')),
@@ -150,20 +158,30 @@ int test_part1(void)
 		);
 
 	all++;
-	count += run_test(test_description("strncmp"), 3,
+	count += run_test(test_description("strncmp"), 5,
 		expect("less:\t", 1, ft_strncmp("1234564789", "12346", 5), strncmp("1234564789", "12346", 5)),
 		expect("equal:", 1, ft_strncmp("123456", "123457", 5), strncmp("123456", "123457", 5)),
-		expect("greater:", 1, ft_strncmp("123456789", "12344", 5), strncmp("123456789", "12344", 5))
+		expect("greater:", 1, ft_strncmp("123456789", "12344", 5), strncmp("123456789", "12344", 5)),
+		expect("empty:", 1, ft_strncmp("1234", "", 5), strncmp("1234", "", 5)),
+		expect("zero:\t", 1, ft_strncmp("123456789", "12344", 0), strncmp("123456789", "12344", 0))
 		);
 
 	all++;
-	count += run_test(test_description("atoi"), 6,
+	count += run_test(test_description("atoi"), 11,
 		expect("0:\t", 1, ft_atoi("0"), atoi("0")),
 		expect("-42:\t", 1, ft_atoi("-42"), atoi("-42")),
 		expect("  1:\t", 1, ft_atoi("  1"), atoi("  1")),
 		expect("10pp:\t", 1, ft_atoi("10pp"), atoi("10pp")),
+		expect("- 10:\t", 1, ft_atoi("- 10"), atoi("- 10")),
+		expect("+10:\t", 1, ft_atoi("+10"), atoi("+10")),
+		expect("+-10:\t", 1, ft_atoi("+-10"), atoi("+-10")),
+		expect("00010:", 1, ft_atoi("00010"), atoi("00010")),
 		expect("-2^31:", 1, ft_atoi("-2147483648"), atoi("-2147483648")),
-		expect("2^31-1:", 1, ft_atoi("2147483647"), atoi("2147483647"))
+		expect("2^31-1:", 1, ft_atoi("2147483647"), atoi("2147483647")),
+		expect("big value:", 1, ft_atoi("99999999999999999999999999"), atoi("99999999999999999999999999")),
+		expect("big neg:", 1, ft_atoi("-99999999999999999999999999"), atoi("-99999999999999999999999999 ")),
+		expect("spaces:", 1, ft_atoi("\t\v\f\r\n \f- \f\t\n\r    06050"),
+			atoi("\t\v\f\r\n \f- \f\t\n\r    06050"))
 		);
 
 	all++;

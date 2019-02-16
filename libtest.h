@@ -6,7 +6,7 @@
 /*   By: emamenko <emamenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 10:55:08 by emamenko          #+#    #+#             */
-/*   Updated: 2019/02/15 16:15:11 by emamenko         ###   ########.fr       */
+/*   Updated: 2019/02/15 22:12:28 by emamenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@
 	unsigned int *:	flatten_array_uint,		\
 	unsigned char *:	flatten_array_uchar		\
 	)(__VA_ARGS__)
+# define wrapper_char(X, Y) _Generic(1, int: wrapper_char_1)(Y)
 
 int		expect(char *name, int type, ...);
 char	*test_description(char *description);
 int		run_test(char *description, int count, ...);
 char	*make_buf(size_t len, char c);
 char	*make_string(char *src);
-char	*wrapper_char(void *stub, char *value);
+char	*wrapper_char_1(char *value);
 void	margin(void);
 char	*flatten_array_char(char **a);
 char	*flatten_array_int(int *a, size_t n);

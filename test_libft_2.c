@@ -142,21 +142,25 @@ int			test_part2(void)
 		expect("both:\t", 3, ft_strtrim("\t0123456789\n"), "0123456789"),
 		expect("none:\t", 3, ft_strtrim("0123456789"), "0123456789"),
 		expect("middle:", 3, ft_strtrim(" 0123  456 789\t"), "0123  456 789"),
-		expect("all:\t", 3, ft_strtrim("   \n   \t  \n"), NULL)
+		expect("all:\t", 3, ft_strtrim("   \n   \t  \n"), make_string(""))
 		);
 
 	all++;
-	count += run_test(test_description("ft_strsplit"), 3,
+	count += run_test(test_description("ft_strsplit"), 4,
 		expect("simple:", 5, ft_strsplit("aaxbb", 'x'), "aa\nbb\n"),
 		expect("multiple:", 5, ft_strsplit("aXXXbbXccc", 'X'), "a\nbb\nccc\n"),
-		expect("head&trail:", 5, ft_strsplit("*aaa**ccc*", '*'), "aaa\nccc\n")
+		expect("head&trail:", 5, ft_strsplit("*aaa**ccc*", '*'), "aaa\nccc\n"),
+		expect("spaces:", 5, ft_strsplit("      split       this for   me  !       ", ' '),
+			"split\nthis\nfor\nme\n!\n")
 	);
 
 	all++;
-	count += run_test(test_description("ft_itoa"), 5,
+	count += run_test(test_description("ft_itoa"), 7,
 		expect("0:\t", 3, ft_itoa(0), "0"),
 		expect("42:\t", 3, ft_itoa(42), "42"),
 		expect("-42:\t", 3, ft_itoa(-42), "-42"),
+		expect("-100002:", 3, ft_itoa(-100002), "-100002"),
+		expect("10:\t", 3, ft_itoa(10), "10"),
 		expect("-2^31:", 3, ft_itoa(-2147483648), "-2147483648"),
 		expect("2^31-1:", 3, ft_itoa(2147483647), "2147483647")
 	);

@@ -1,10 +1,13 @@
 #include "libft.h"
 #include "libtest.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <malloc/malloc.h>
 
 int			test_mine(void)
 {
 	int		count, all;
+	char	*s;
 
 	margin();
 	printf("    \x1b[1;39madditional\x1b[0m\n");
@@ -27,6 +30,14 @@ int			test_mine(void)
 		expect("34:\t", 3, ft_extract_word("12 34", ' ', 2), "34"),
 		expect("qwdsa7:", 3, ft_extract_word("   12 34  qwdsa7  wer   ", ' ', 3), "qwdsa7")
 		);
+
+	s = make_buf(1000, '\0');
+	strcpy(s, "123456789");
+	all++;
+	count += run_test(test_description("ft_strshrink"), 1,
+		expect("shrink:", 1, malloc_size(ft_strshrink(&s)), 16)
+		);
+	free(s);
 
 	margin();
 	printf("    --\n");

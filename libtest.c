@@ -226,10 +226,8 @@ char		*make_string(char *src)
 	return (dest);
 }
 
-char		*wrapper_char(void *stub, char *value)
+char		*wrapper_char_1(char *value)
 {
-	if (stub == NULL)
-		;
 	return (value);
 }
 
