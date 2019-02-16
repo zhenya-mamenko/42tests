@@ -7,6 +7,7 @@
 int			test_mine(void)
 {
 	int		count, all;
+	int		a[4] = {1, 23, 456, 7890};
 	char	*s;
 
 	count = 0;
@@ -36,6 +37,14 @@ int			test_mine(void)
 		expect("shrink:", 1, malloc_size(ft_strshrink(&s)), 16)
 		);
 	free(s);
+
+	all += run_test(test_description("ft_flatten_charr"), &count,
+		expect("flat", 3, ft_flatten_charr(ft_strsplit("  1 23 456  7890", ' ')), "1\n23\n456\n7890\n")
+		);
+
+	all += run_test(test_description("ft_flatten_int_array"), &count,
+		expect("flat", 3, ft_flatten_intarr(a, 4), "1\t23\t456\t7890")
+		);
 
 	margin();
 	printf("    --\n");
