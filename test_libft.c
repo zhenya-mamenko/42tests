@@ -8,7 +8,7 @@
 int main(void)
 {
 
-	run_test(test_description("\x1b[95mlibft"), 2,
+	run_test(test_description("\x1b[95mlibft"), 4,
 		test_part1(),
 		test_part2(),
 		test_bonus(),
