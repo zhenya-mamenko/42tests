@@ -6,6 +6,43 @@
 
 int		g_test_level = -1;
 
+static char *replace_word(const char *s, const char *oldW, const char *newW)
+{ 
+	char *result; 
+	int i, cnt = 0; 
+	int newWlen = strlen(newW); 
+	int oldWlen = strlen(oldW); 
+
+	for (i = 0; s[i] != '\0'; i++) 
+	{ 
+		if (strstr(&s[i], oldW) == &s[i]) 
+		{ 
+			cnt++; 
+			i += oldWlen - 1; 
+		} 
+	} 
+	result = (char *)malloc(i + cnt * (newWlen - oldWlen) + 1); 
+	i = 0; 
+	while (*s) 
+	{ 
+		if (strstr(s, oldW) == s) 
+		{ 
+			strcpy(&result[i], newW); 
+			i += newWlen; 
+			s += oldWlen; 
+		} 
+		else
+			result[i++] = *s++; 
+	} 
+	result[i] = '\0'; 
+	return (result); 
+}
+
+static char *escape_sym(char *s)
+{
+	return (replace_word(replace_word(s, "\n", "\\n"), "\t", "\\t"));
+}
+
 static void	r_itoa(long nb, char *s, int *index)
 {
 	if (nb < 0)
@@ -270,7 +307,8 @@ int			expect(char *name, int type, ...)
 			result = strcmp(s_a1, s_a2) == 0 ? 1 : 0;
 		print_result(result);
 		if (result == 0)
-			printf(". Value: \x1b[1m%s\x1b[0m Expected: \x1b[1m%s\x1b[0m\n", s_a1, s_a2);
+			printf(". Value: \x1b[1m%s\x1b[0m Expected: \x1b[1m%s\x1b[0m\n",
+				escape_sym(s_a1), escape_sym(s_a2));
 		else
 			printf(".\n");
 	}
@@ -296,7 +334,8 @@ int			expect(char *name, int type, ...)
 			result = strcmp(flatten_array(a1), s_a1) == 0 ? 1 : 0;
 		print_result(result);
 		if (result == 0)
-			printf(". Value: \x1b[1m%s\x1b[0m Expected: \x1b[1m%s\x1b[0m\n", flatten_array(a1), s_a1);
+			printf(". Value: \x1b[1m%s\x1b[0m Expected: \x1b[1m%s\x1b[0m\n",
+				escape_sym(flatten_array(a1)), escape_sym(s_a1));
 		else
 			printf(".\n");
 	}
