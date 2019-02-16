@@ -1,3 +1,3 @@
 dir=$(pwd)
-cd $1 && make && make clean && cd $dir
+cd $1 && make fclean && make && make clean && cd $dir
 gcc -Wall -Werror -Wextra -o test -ltest -L. -lft -L$1 test_libft.c

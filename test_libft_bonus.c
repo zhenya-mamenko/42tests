@@ -79,43 +79,37 @@ int			test_bonus(void)
 	all = 0;
 
 	el1 = ft_lstnew("Test list", 10);
-	all++;
-	count += run_test(test_description("ft_lstnew"), 3,
+	all += run_test(test_description("ft_lstnew"), &count,
 		expect("create:", 3, flatten_tlist(el1), "Test list\n"),
 		expect("null:\t", 3, flatten_tlist(ft_lstnew(NULL, 2^32-1)), "(null)"),
 		expect("0:\t", 3, flatten_tlist(ft_lstnew("Test list", 0)), "(null)")
 		);
 
 	ft_lstdel(&el1, del);
-	all++;
-	count += run_test(test_description("ft_lstdelone"), 1,
+	all += run_test(test_description("ft_lstdelone"), &count,
 		expect("free:", 3, flatten_tlist(el1), "(null)")
 		);
 
 	el1 = ft_lstnew("Test list", 10);
 	el1->next = ft_lstnew("Test list", 10^20);
 	ft_lstdel(&el1, del);
-	all++;
-	count += run_test(test_description("ft_lstdel"), 1,
+	all += run_test(test_description("ft_lstdel"), &count,
 		expect("free:", 3, flatten_tlist(el1), "(null)")
 		);
 
 	el1 = ft_lstnew("Test list", 10);
 	el2 = ft_lstnew("Begin of list", 14);
 	ft_lstadd(&el1, el2);
-	all++;
-	count += run_test(test_description("ft_lstadd"), 1,
+	all += run_test(test_description("ft_lstadd"), &count,
 		expect("new:", 3, flatten_tlist(el2), "Begin of list\nTest list\n")
 		);
 
 	ft_lstiter(el2, fli);
-	all++;
-	count += run_test(test_description("ft_lstiter"), 1,
+	all += run_test(test_description("ft_lstiter"), &count,
 		expect("XXX:", 3, flatten_tlist(el2), "XXXXXXXXXXXXX\nXXXXXXXXX\n")
 		);
 
-	all++;
-	count += run_test(test_description("ft_lstmap"), 1,
+	all += run_test(test_description("ft_lstmap"), &count,
 		expect("13-9:", 3, flatten_tlist(ft_lstmap(el2, flm)), "13\n9\n")
 		);
 
@@ -127,5 +121,6 @@ int			test_bonus(void)
 	else
 		printf("    \x1b[91;1mFAIL \x1b[39m%d/%d\x1b[0m\n\n", count, all);
 	
-	return (count == all ? 1 : 0);
+	g_all_tests_count += all;
+	return (count);
 }

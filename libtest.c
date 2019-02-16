@@ -174,7 +174,6 @@ char	*flatten_array_uchar(unsigned char *a, size_t n)
 	return (e);
 }
 
-
 void	margin(void)
 {
 	int	i;
@@ -192,8 +191,10 @@ static void	print_result(result)
 	margin();
 	if (result == 1)
 		printf("\x1b[92;1mOK\x1b[0m");
-	else
+	else if (result == 0)
 		printf("\x1b[91;1mFAIL\x1b[0m");
+	else if (result == 2)
+		printf("\x1b[93mSKIP\x1b[0m");
 }
 
 char		*make_buf(size_t len, char c)
@@ -231,16 +232,29 @@ char		*wrapper_char_1(char *value)
 	return (value);
 }
 
-int		run_test(char *description, int count, ...)
+int		skip_run_test_1(char *description, int *count, int argc)
+{
+	if (description) {};
+	margin();
+	printf("--\n");
+	print_result(2);
+	printf(" \x1b[39;1m%d/%d\x1b[0m\n\n", argc, argc);
+	g_test_level--;
+	*count += argc;
+	g_all_tests_count += argc;
+	return (argc);
+}
+
+int		run_test_1(char *description, int *count, int argc, ...)
 {
 	va_list	arg_ptr;
 	int		i, result;
 	
 	if (description) {};
-	va_start(arg_ptr, count);
+	va_start(arg_ptr, argc);
 	i = 0;
 	result = 0;
-	while (i < count)
+	while (i < argc)
 	{
 		result += va_arg(arg_ptr, int);
 		i += 1;
@@ -248,11 +262,38 @@ int		run_test(char *description, int count, ...)
 	va_end(arg_ptr);
 	margin();
 	printf("--\n");
-	print_result(result == count ? 1 : 0);
-	printf(" \x1b[39;1m%d/%d\x1b[0m\n\n", result, count);
+	print_result(result == argc ? 1 : 0);
+	printf(" \x1b[39;1m%d/%d\x1b[0m\n\n", result, argc);
 	g_test_level--;
-	return (result == count ? 1 : 0);
+	*count += result;
+	g_all_tests_count += argc;
+	return (argc);
 }
+
+int		run_test_global_1(char *description, int *count, int argc, ...)
+{
+	va_list	arg_ptr;
+	int		i, result;
+	
+	if (description) {};
+	va_start(arg_ptr, argc);
+	i = 0;
+	result = 0;
+	while (i < argc)
+	{
+		result += va_arg(arg_ptr, int);
+		i += 1;
+	}
+	va_end(arg_ptr);
+	margin();
+	printf("--\n");
+	*count += result;
+	print_result(*count == g_all_tests_count ? 1 : 0);
+	printf(" \x1b[39;1m%d/%d\x1b[0m\n\n", *count, g_all_tests_count);
+	g_test_level--;
+	return (g_all_tests_count);
+}
+
 
 char		*test_description(char *description)
 {
