@@ -157,6 +157,10 @@ int test_part1(void)
 		expect("00010:", 1, ft_atoi("00010"), atoi("00010")),
 		expect("-2^31:", 1, ft_atoi("-2147483648"), atoi("-2147483648")),
 		expect("2^31-1:", 1, ft_atoi("2147483647"), atoi("2147483647")),
+		expect("-overflow:", 1, ft_atoi("-214748364899"), atoi("-214748364899")),
+		expect("overflow:", 1, ft_atoi("214748364799"), atoi("214748364799")),
+		expect("-long over:", 1, ft_atoi("-9999999999999999999999999999999"), atoi("-9999999999999999999999999999999")),
+		expect("long over:", 1, ft_atoi("9999999999999999999999999999999"), atoi("9999999999999999999999999999999")),
 		expect("spaces:", 1, ft_atoi("\t\v\f\r\n \f- \f\t\n\r    06050"),
 			atoi("\t\v\f\r\n \f- \f\t\n\r    06050"))
 		);
