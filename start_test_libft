@@ -1,1 +1,11 @@
-./start_test libft /nfs/2018/e/emamenko/projects/libft/
+PATH_LIBFT=/nfs/2018/e/emamenko/projects/libft
+echo "\x1b[1;96mMaking libft...\n"
+PATH_LIBFT=$( echo $PATH_LIBFT | sed -e s\%/$%%g )
+make -s -C $PATH_LIBFT re
+if [ -f $PATH_LIBFT/libft.a ]; then
+	./start_test libft $PATH_LIBFT | less
+else
+	echo "\x1b[1;91mERROR\n\x1b[97m$PATH_LIBFT/libft.a not found!\n"
+fi
+
+
