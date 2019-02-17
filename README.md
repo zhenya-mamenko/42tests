@@ -6,8 +6,7 @@ Some useful functions for unit-testing projects.
 
 **Example: libft**
 
-1. make test file using test system: `test_libft.c`
-2. make shell script build_<project_name> -> `build_libft`
-3. exec `start_test` script with name of project: `start_test libft`
-4. enjoy
+1. exec `start_test` script with name of project and path: `start_test libft /tmp/libft`
+2. enjoy
 
+* you can use special file for it, e.g. start_test_libft, it will be useful
