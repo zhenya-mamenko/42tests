@@ -6,7 +6,7 @@
 /*   By: emamenko <emamenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 10:55:08 by emamenko          #+#    #+#             */
-/*   Updated: 2019/02/16 10:06:40 by emamenko         ###   ########.fr       */
+/*   Updated: 2019/02/17 06:10:05 by emamenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 		 9,8,7,6,5,4,3,2,1,0
 # define FARG(X, ...) X
 # define SARG(Y, X, ...) X
+# define TARG(Z, Y, X, ...) X
 # define ARGS(Z, Y, ...) __VA_ARGS__
 
 # define skip_run_test(...) skip_run_test_1(FARG(__VA_ARGS__), \
@@ -44,23 +45,32 @@
 		 SARG(__VA_ARGS__), (PP_NARG(__VA_ARGS__) - 2), ARGS(__VA_ARGS__))
 
 # define flatten_array(...) _Generic(FARG(__VA_ARGS__),	\
-	char **:		flatten_array_char,		\
-	int *:			flatten_array_int,		\
-	unsigned int *:	flatten_array_uint,		\
+	char **:			flatten_array_char,		\
+	int *:				flatten_array_int,		\
+	unsigned int *:		flatten_array_uint,		\
 	unsigned char *:	flatten_array_uchar		\
 	)(__VA_ARGS__)
-# define wrapper_char(X, Y) _Generic(1, int: wrapper_char_1)(Y)
+
+# define wrapper_char(X, Y) _Generic(1, int: wrapper_char_1)(Y, X)
+
+# define expect(X, ...) expect_1(X, _Generic(SARG(__VA_ARGS__), \
+	int:		1,	\
+	size_t:		1,	\
+	char *:		2,	\
+	void *:		3,	\
+	default:	2	\
+	), __VA_ARGS__)
 
 static int		g_all_tests_count = 0;
 
-int		expect(char *name, int type, ...);
+int		expect_1(char *name, int type, ...);
 char	*test_description(char *description);
 int		run_test_1(char *description, int *count, int argc, ...);
 int		run_test_global_1(char *description, int *count, int argc, ...);
 int		skip_run_test_1(char *description, int *count, int argc);
 char	*make_buf(size_t len, char c);
 char	*make_string(char *src);
-char	*wrapper_char_1(char *value);
+char	*wrapper_char_1(char *value, ...);
 void	margin(void);
 char	*flatten_array_char(char **a);
 char	*flatten_array_int(int *a, size_t n);

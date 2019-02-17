@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libtest.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emamenko <emamenko@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/16 20:53:48 by emamenko          #+#    #+#             */
+/*   Updated: 2019/02/16 21:12:05 by emamenko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -227,7 +239,7 @@ char		*make_string(char *src)
 	return (dest);
 }
 
-char		*wrapper_char_1(char *value)
+char		*wrapper_char_1(char *value, ...)
 {
 	return (value);
 }
@@ -303,10 +315,10 @@ char		*test_description(char *description)
 	return (description);
 }
 
-int			expect(char *name, int type, ...)
+int			expect_1(char *name, int type, ...)
 {
 	int		result, l, i_a1, i_a2;
-	char	*b, c_a1, c_a2, *s_a1, *s_a2, **a1;
+	char	*b, *s_a1, *s_a2;
 	va_list	arg_ptr;
 
 	b = malloc(sizeof(char) * 1000);
@@ -325,18 +337,7 @@ int			expect(char *name, int type, ...)
 		else
 			printf(".\n");
 	}
-	else if (type == 2) // char
-	{
-		c_a1 = va_arg(arg_ptr, int);
-		c_a2 = va_arg(arg_ptr, int);
-		result = c_a1 == c_a2 ? 1 : 0;
-		print_result(result);
-		if (result == 0)
-			printf(". Value: \x1b[1m%c\x1b[0m Expected: \x1b[1m%c\x1b[0m\n", c_a1, c_a2);
-		else
-			printf(".\n");
-	}
-	else if (type == 3) // string
+	else if (type == 2) // string
 	{
 		s_a1 = va_arg(arg_ptr, char*);
 		s_a2 = va_arg(arg_ptr, char*);
@@ -351,32 +352,17 @@ int			expect(char *name, int type, ...)
 		else
 			printf(".\n");
 	}
-	else if (type == 4) // char*
+	else if (type == 3) // void*
 	{
+		s_a1 = va_arg(arg_ptr, void*);
+		s_a2 = va_arg(arg_ptr, void*);
 		l = va_arg(arg_ptr, int);
-		s_a1 = va_arg(arg_ptr, char*);
-		s_a2 = va_arg(arg_ptr, char*);
 		if (s_a1 == NULL || s_a2 == NULL)
 			result = (s_a1 == s_a2) ? 1 : 0;
 		else
 			result = memcmp(s_a1, s_a2, l) == 0 ? 1 : 0;
 		print_result(result);
 		printf(".\n");
-	}
-	else if (type == 5) // array of string
-	{
-		a1 = va_arg(arg_ptr, char**);
-		s_a1 = va_arg(arg_ptr, char*);
-		if (a1 == NULL || s_a1 == NULL)
-			result = ((void*)a1 == (void*)s_a1) ? 1 : 0;
-		else
-			result = strcmp(flatten_array(a1), s_a1) == 0 ? 1 : 0;
-		print_result(result);
-		if (result == 0)
-			printf(". Value: \x1b[1m%s\x1b[0m Expected: \x1b[1m%s\x1b[0m\n",
-				escape_sym(flatten_array(a1)), escape_sym(s_a1));
-		else
-			printf(".\n");
 	}
 	
 	va_end(arg_ptr);

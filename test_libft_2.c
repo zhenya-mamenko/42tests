@@ -52,112 +52,112 @@ int			test_part2(void)
 
 		a1 = ft_memalloc(1000);
 	all += run_test(test_description("ft_memalloc"), &count,
-		expect("allocate:", 1, a1 != NULL && check_zeros(a1, 1000) == 1 ? 1 : 0, 1)
+		expect("allocate:", a1 != NULL && check_zeros(a1, 1000) == 1 ? 1 : 0, 1)
 		);
 
 		ft_memdel((void **)(&a1));
 	all += run_test(test_description("ft_memdel"), &count,
-		expect("free:\t", 1, a1 == NULL ? 1 : 0, 1)
+		expect("free:\t", a1 == NULL ? 1 : 0, 1)
 		);
 
 		a1 = ft_strnew(1000);
 	all += run_test(test_description("ft_strnew"), &count,
-		expect("allocate:", 1, a1 != NULL && check_zeros(a1, 1001) == 1 ? 1 : 0, 1)
+		expect("allocate:", a1 != NULL && check_zeros(a1, 1001) == 1 ? 1 : 0, 1)
 		);
 
 		ft_strdel(&a1);
 	all += run_test(test_description("ft_strdel"), &count,
-		expect("free:\t", 1, a1 == NULL ? 1 : 0, 1)
+		expect("free:\t", a1 == NULL ? 1 : 0, 1)
 		);
 
 		a1 = make_string("1234567890");
 	ft_strclr(a1);
 	all += run_test(test_description("ft_strclr"), &count,
-		expect("free:\t", 1, check_zeros(a1, 11) ? 1 : 0, 1)
+		expect("free:\t", check_zeros(a1, 11) ? 1 : 0, 1)
 		);
 	ft_strdel(&a1);
 
 		a1 = make_string("1234567890");
 	ft_striter(a1, fiter);
 	all += run_test(test_description("ft_striter"), &count,
-		expect("XXX:\t", 3, a1, "XXXXXXXXXX")
+		expect("XXX:\t", a1, "XXXXXXXXXX")
 		);
 	ft_strdel(&a1);
 
 		a1 = make_string("XXXXXXXXXX");
 	ft_striteri(a1, fiteri);
 	all += run_test(test_description("ft_striteri"), &count,
-		expect("0-9:\t", 3, a1, "0123456789")
+		expect("0-9:\t", a1, "0123456789")
 		);
 	ft_strdel(&a1);
 
 	all += run_test(test_description("ft_strmap"), &count,
-		expect("XXX:\t", 3, ft_strmap("0123456789", fiterc), "XXXXXXXXXX")
+		expect("XXX:\t", ft_strmap("0123456789", fiterc), "XXXXXXXXXX")
 		);
 
 	all += run_test(test_description("ft_strmapi"), &count,
-		expect("0-9:\t", 3, ft_strmapi("XXXXXXXXXX", fiterci), "0123456789")
+		expect("0-9:\t", ft_strmapi("XXXXXXXXXX", fiterci), "0123456789")
 		);
 
 	all += run_test(test_description("ft_strequ"), &count,
-		expect("equal:", 1, ft_strequ("0123456789", "0123456789"), 1),
-		expect("non-equal:", 1, ft_strequ("0123456789", "012345678A"), 0),
-		expect("less:\t", 1, ft_strequ("0123456", "0123456789"), 0),
-		expect("greater:", 1, ft_strequ("0123456789", "0123456"), 0)
+		expect("equal:", ft_strequ("0123456789", "0123456789"), 1),
+		expect("non-equal:", ft_strequ("0123456789", "012345678A"), 0),
+		expect("less:\t", ft_strequ("0123456", "0123456789"), 0),
+		expect("greater:", ft_strequ("0123456789", "0123456"), 0)
 		);
 
 	all += run_test(test_description("ft_strnequ"), &count,
-		expect("equal:", 1, ft_strnequ("0123456789", "0123456789", 5), 1),
-		expect("non-equal:", 1, ft_strnequ("0123456789", "012345678A", 10), 0),
-		expect("equal2:", 1, ft_strnequ("0123456789", "012345678A", 5), 1),
-		expect("less:\t", 1, ft_strnequ("0123456", "0123456789", 8), 0),
-		expect("greater:", 1, ft_strnequ("0123456789", "0123456", 6), 1)
+		expect("equal:", ft_strnequ("0123456789", "0123456789", 5), 1),
+		expect("non-equal:", ft_strnequ("0123456789", "012345678A", 10), 0),
+		expect("equal2:", ft_strnequ("0123456789", "012345678A", 5), 1),
+		expect("less:\t", ft_strnequ("0123456", "0123456789", 8), 0),
+		expect("greater:", ft_strnequ("0123456789", "0123456", 6), 1)
 		);
 
 	all += run_test(test_description("ft_strsub"), &count,
-		expect("3456:\t", 3, ft_strsub("0123456789", 3, 4), "3456")
+		expect("3456:\t", ft_strsub("0123456789", 3, 4), "3456")
 		);
 
 	all += run_test(test_description("ft_strjoin"), &count,
-		expect("123789:", 3, ft_strjoin("123", "789"), "123789")
+		expect("123789:", ft_strjoin("123", "789"), "123789")
 		);
 
 	all += run_test(test_description("ft_strtrim"), &count,
-		expect("head:\t", 3, ft_strtrim("   0123456789"), "0123456789"),
-		expect("trail:", 3, ft_strtrim("0123456789\t \n"), "0123456789"),
-		expect("both:\t", 3, ft_strtrim("\t0123456789\n"), "0123456789"),
-		expect("none:\t", 3, ft_strtrim("0123456789"), "0123456789"),
-		expect("middle:", 3, ft_strtrim(" 0123  456 789\t"), "0123  456 789"),
-		expect("all:\t", 3, ft_strtrim("   \n   \t  \n"), make_string(""))
+		expect("head:\t", ft_strtrim("   0123456789"), "0123456789"),
+		expect("trail:", ft_strtrim("0123456789\t \n"), "0123456789"),
+		expect("both:\t", ft_strtrim("\t0123456789\n"), "0123456789"),
+		expect("none:\t", ft_strtrim("0123456789"), "0123456789"),
+		expect("middle:", ft_strtrim(" 0123  456 789\t"), "0123  456 789"),
+		expect("all:\t", ft_strtrim("   \n   \t  \n"), make_string(""))
 		);
 
 	all += run_test(test_description("ft_strsplit"), &count,
-		expect("simple:", 5, ft_strsplit("aaxbb", 'x'), "aa\nbb\n"),
-		expect("multiple:", 5, ft_strsplit("aXXXbbXccc", 'X'), "a\nbb\nccc\n"),
-		expect("head&trail:", 5, ft_strsplit("*aaa**ccc*", '*'), "aaa\nccc\n"),
-		expect("spaces:", 5, ft_strsplit("      split       this for   me  !       ", ' '),
+		expect("simple:", ft_flatten_charr(ft_strsplit("aaxbb", 'x')), "aa\nbb\n"),
+		expect("multiple:", ft_flatten_charr(ft_strsplit("aXXXbbXccc", 'X')), "a\nbb\nccc\n"),
+		expect("head&trail:", ft_flatten_charr(ft_strsplit("*aaa**ccc*", '*')), "aaa\nccc\n"),
+		expect("spaces:", ft_flatten_charr(ft_strsplit("      split       this for   me  !       ", ' ')),
 			"split\nthis\nfor\nme\n!\n")
 	);
 
 	all += run_test(test_description("ft_itoa"), &count,
-		expect("0:\t", 3, ft_itoa(0), "0"),
-		expect("42:\t", 3, ft_itoa(42), "42"),
-		expect("-42:\t", 3, ft_itoa(-42), "-42"),
-		expect("-100002:", 3, ft_itoa(-100002), "-100002"),
-		expect("10:\t", 3, ft_itoa(10), "10"),
-		expect("-2^31:", 3, ft_itoa(-2147483648), "-2147483648"),
-		expect("2^31-1:", 3, ft_itoa(2147483647), "2147483647")
+		expect("0:\t", ft_itoa(0), "0"),
+		expect("42:\t", ft_itoa(42), "42"),
+		expect("-42:\t", ft_itoa(-42), "-42"),
+		expect("-100002:", ft_itoa(-100002), "-100002"),
+		expect("10:\t", ft_itoa(10), "10"),
+		expect("-2^31:", ft_itoa(-2147483648), "-2147483648"),
+		expect("2^31-1:", ft_itoa(2147483647), "2147483647")
 	);
 
 	all += skip_run_test(test_description("puts utilites"), &count,
-		expect("putchar:", 1, 0, 0),
-		expect("putstr:", 1, 0, 0),
-		expect("putendl:", 1, 0, 0),
-		expect("putnbr:", 1, 0, 0),
-		expect("putchar_fd:", 1, 0, 0),
-		expect("putstr_fd:", 1, 0, 0),
-		expect("putendl_fd:", 1, 0, 0),
-		expect("putnbr_fd:", 1, 0, 0)
+		expect("putchar:", 0, 0),
+		expect("putstr:", 0, 0),
+		expect("putendl:", 0, 0),
+		expect("putnbr:", 0, 0),
+		expect("putchar_fd:", 0, 0),
+		expect("putstr_fd:", 0, 0),
+		expect("putendl_fd:", 0, 0),
+		expect("putnbr_fd:", 0, 0)
 		);
 
 	margin();

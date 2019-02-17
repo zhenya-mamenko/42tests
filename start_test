@@ -1,8 +1,12 @@
+
 clear
-make -s
-./build_$1 $2 > /dev/null
-echo "\n\x1b[1mStart testing: \x1b[4;96m$1\x1b[0m\n"
-./test
-rm test > /dev/null
-make fclean -s
-echo "\n"
+if [ -f $2/libft.a ]; then
+	make -s re
+	make -s --makefile=Makefile_$1 PATH=$2
+	echo "\n\x1b[1mStart testing: \x1b[4;96m$1\x1b[0m\n"
+	./test_suite
+	rm test_suite > /dev/null
+	make fclean -s
+else
+	echo "\x1b[1;91mERROR\n\x1b[97m$2/libft.a not found!\n"
+fi

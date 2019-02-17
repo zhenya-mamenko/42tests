@@ -2,7 +2,7 @@
 #include "libtest.h"
 #include <stdio.h>
 
-char	*flatten_tlist(t_list *lst)
+static char	*flatten_tlist(t_list *lst)
 {
 	int		i;
 	int		len;
@@ -36,13 +36,13 @@ char	*flatten_tlist(t_list *lst)
 	return (s);
 }
 
-void	del(void *b, size_t size)
+static void	del(void *b, size_t size)
 {
 	size = 0;
 	free(b);
 }
 
-void	fli(t_list *elem)
+static void	fli(t_list *elem)
 {
 	char *s;
 
@@ -54,7 +54,7 @@ void	fli(t_list *elem)
 	}
 }
 
-t_list	*flm(t_list *elem)
+static t_list	*flm(t_list *elem)
 {
 	char *s;
 	t_list *new;
@@ -80,37 +80,37 @@ int			test_bonus(void)
 
 	el1 = ft_lstnew("Test list", 10);
 	all += run_test(test_description("ft_lstnew"), &count,
-		expect("create:", 3, flatten_tlist(el1), "Test list\n"),
-		expect("null:\t", 3, flatten_tlist(ft_lstnew(NULL, 2^32-1)), "(null)"),
-		expect("0:\t", 3, flatten_tlist(ft_lstnew("Test list", 0)), "(null)")
+		expect("create:", flatten_tlist(el1), "Test list\n"),
+		expect("null:\t", flatten_tlist(ft_lstnew(NULL, 2^32-1)), "(null)"),
+		expect("0:\t", flatten_tlist(ft_lstnew("Test list", 0)), "(null)")
 		);
 
 	ft_lstdel(&el1, del);
 	all += run_test(test_description("ft_lstdelone"), &count,
-		expect("free:", 3, flatten_tlist(el1), "(null)")
+		expect("free:", flatten_tlist(el1), "(null)")
 		);
 
 	el1 = ft_lstnew("Test list", 10);
 	el1->next = ft_lstnew("Test list", 10^20);
 	ft_lstdel(&el1, del);
 	all += run_test(test_description("ft_lstdel"), &count,
-		expect("free:", 3, flatten_tlist(el1), "(null)")
+		expect("free:", flatten_tlist(el1), "(null)")
 		);
 
 	el1 = ft_lstnew("Test list", 10);
 	el2 = ft_lstnew("Begin of list", 14);
 	ft_lstadd(&el1, el2);
 	all += run_test(test_description("ft_lstadd"), &count,
-		expect("new:", 3, flatten_tlist(el2), "Begin of list\nTest list\n")
+		expect("new:", flatten_tlist(el2), "Begin of list\nTest list\n")
 		);
 
 	ft_lstiter(el2, fli);
 	all += run_test(test_description("ft_lstiter"), &count,
-		expect("XXX:", 3, flatten_tlist(el2), "XXXXXXXXXXXXX\nXXXXXXXXX\n")
+		expect("XXX:", flatten_tlist(el2), "XXXXXXXXXXXXX\nXXXXXXXXX\n")
 		);
 
 	all += run_test(test_description("ft_lstmap"), &count,
-		expect("13-9:", 3, flatten_tlist(ft_lstmap(el2, flm)), "13\n9\n")
+		expect("13-9:", flatten_tlist(ft_lstmap(el2, flm)), "13\n9\n")
 		);
 
 	margin();
