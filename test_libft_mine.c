@@ -49,13 +49,13 @@ int			test_mine(void)
 		expect("flat:\t", ft_flatten_intarr(a, 4), "1\t23\t456\t7890")
 		);
 
-	/*el1 = ft_lstnew("Test list", 10);
+	el1 = ft_lstnew("Test list", 10);
 	el2 = ft_lstnew("Begin of list", 14);
 	ft_lstadd(&el1, el2);
 	all += run_test(test_description("ft_flatten_tlist"), &count,
 		expect("flat:\t", ft_flatten_tlist(el2), "Begin of list\nTest list\n")
 		);
-*/
+
 	margin();
 	printf("    --\n");
 	margin();
