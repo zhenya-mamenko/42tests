@@ -1,0 +1,9 @@
+PATH_GNL=/nfs/2018/e/emamenko/projects/get_next_line
+PATH_GNL=$( echo $PATH_GNL | sed -e s\%/$%%g )
+if [ -f $PATH_GNL/get_next_line.c ]; then
+	./start_test gnl $PATH_GNL | less
+else
+	echo "\x1b[1;91mERROR\n\x1b[97m$PATH_GNL/get_next_line.c not found!\n"
+fi
+
+

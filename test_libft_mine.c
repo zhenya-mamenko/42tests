@@ -56,13 +56,7 @@ int			test_mine(void)
 		expect("flat:\t", ft_flatten_tlist(el2), "Begin of list\nTest list\n")
 		);
 
-	margin();
-	printf("    --\n");
-	margin();
-	if (count == all)
-		printf("    \x1b[92;1mOK \x1b[39m%d/%d\x1b[0m\n\n", count, all);
-	else
-		printf("    \x1b[91;1mFAIL \x1b[39m%d/%d\x1b[0m\n\n", count, all);
+	finish_test_block(count, all);
 	g_all_tests_count += all;
 	return (count);
 }

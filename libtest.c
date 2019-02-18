@@ -6,7 +6,7 @@
 /*   By: emamenko <emamenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 20:53:48 by emamenko          #+#    #+#             */
-/*   Updated: 2019/02/16 21:12:05 by emamenko         ###   ########.fr       */
+/*   Updated: 2019/02/18 13:52:41 by emamenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,35 @@
 int		g_test_level = -1;
 
 static char *replace_word(const char *s, const char *oldW, const char *newW)
-{ 
-	char *result; 
-	int i, cnt = 0; 
-	int newWlen = strlen(newW); 
-	int oldWlen = strlen(oldW); 
+{
+	char *result;
+	int i, cnt = 0;
+	int newWlen = strlen(newW);
+	int oldWlen = strlen(oldW);
 
-	for (i = 0; s[i] != '\0'; i++) 
-	{ 
-		if (strstr(&s[i], oldW) == &s[i]) 
-		{ 
-			cnt++; 
-			i += oldWlen - 1; 
-		} 
-	} 
-	result = (char *)malloc(i + cnt * (newWlen - oldWlen) + 1); 
-	i = 0; 
-	while (*s) 
-	{ 
-		if (strstr(s, oldW) == s) 
-		{ 
-			strcpy(&result[i], newW); 
-			i += newWlen; 
-			s += oldWlen; 
-		} 
+	for (i = 0; s[i] != '\0'; i++)
+	{
+		if (strstr(&s[i], oldW) == &s[i])
+		{
+			cnt++;
+			i += oldWlen - 1;
+		}
+	}
+	result = (char *)malloc(i + cnt * (newWlen - oldWlen) + 1);
+	i = 0;
+	while (*s)
+	{
+		if (strstr(s, oldW) == s)
+		{
+			strcpy(&result[i], newW);
+			i += newWlen;
+			s += oldWlen;
+		}
 		else
-			result[i++] = *s++; 
-	} 
-	result[i] = '\0'; 
-	return (result); 
+			result[i++] = *s++;
+	}
+	result[i] = '\0';
+	return (result);
 }
 
 static char *escape_sym(char *s)
@@ -261,7 +261,7 @@ int		run_test_1(char *description, int *count, int argc, ...)
 {
 	va_list	arg_ptr;
 	int		i, result;
-	
+
 	if (description) {};
 	va_start(arg_ptr, argc);
 	i = 0;
@@ -286,7 +286,7 @@ int		run_test_global_1(char *description, int *count, int argc, ...)
 {
 	va_list	arg_ptr;
 	int		i, result;
-	
+
 	if (description) {};
 	va_start(arg_ptr, argc);
 	i = 0;
@@ -364,7 +364,18 @@ int			expect_1(char *name, int type, ...)
 		print_result(result);
 		printf(".\n");
 	}
-	
+
 	va_end(arg_ptr);
 	return (result);
+}
+
+void finish_test_block(int const count, int const all)
+{
+	margin();
+	printf("    --\n");
+	margin();
+	if (count == all)
+		printf("    \x1b[92;1mOK \x1b[39m%d/%d\x1b[0m\n\n", count, all);
+	else
+		printf("    \x1b[91;1mFAIL \x1b[39m%d/%d\x1b[0m\n\n", count, all);
 }

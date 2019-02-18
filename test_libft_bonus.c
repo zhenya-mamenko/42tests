@@ -113,14 +113,7 @@ int			test_bonus(void)
 		expect("13-9:", flatten_tlist(ft_lstmap(el2, flm)), "13\n9\n")
 		);
 
-	margin();
-	printf("    --\n");
-	margin();
-	if (count == all)
-		printf("    \x1b[92;1mOK \x1b[39m%d/%d\x1b[0m\n\n", count, all);
-	else
-		printf("    \x1b[91;1mFAIL \x1b[39m%d/%d\x1b[0m\n\n", count, all);
-	
+	finish_test_block(count, all);
 	g_all_tests_count += all;
 	return (count);
 }

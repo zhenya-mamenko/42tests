@@ -6,7 +6,7 @@
 /*   By: emamenko <emamenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 10:55:08 by emamenko          #+#    #+#             */
-/*   Updated: 2019/02/17 06:10:05 by emamenko         ###   ########.fr       */
+/*   Updated: 2019/02/18 13:50:51 by emamenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ char	*flatten_array_char(char **a);
 char	*flatten_array_int(int *a, size_t n);
 char	*flatten_array_uint(unsigned int *a, size_t n);
 char	*flatten_array_uchar(unsigned char *a, size_t n);
+void	finish_test_block(int count, int all);
 
 #endif
