@@ -6,7 +6,7 @@
 
 int			test_files(void)
 {
-	int		count, all, fd1, fd2, fd3;
+	int		count, all, fd1, fd2, fd3, fd4;
 	char	*line;
 
 	count = 0;
@@ -24,28 +24,33 @@ int			test_files(void)
 		);
 
 	fd2 = open("gnl_tests/test2.txt", O_RDONLY);
-	all += skip_run_test(test_description("test2.txt"), &count,
+	all += run_test(test_description("test2.txt"), &count,
 		expect("1:\t", wrapper_char(get_next_line(fd2, &line), line), "# **************************************************************************** #"),
 		expect("2:\t", wrapper_char(get_next_line(fd2, &line), line), "#                                                                              #"),
-		expect("3:\t", wrapper_char(get_next_line(fd2, &line), line), "/*                                                        :::      ::::::::   */"),
-		expect("4:\t", wrapper_char(get_next_line(fd2, &line), line), "#                                                     +:+ +:+         +:+      #"),
-		expect("5:\t", wrapper_char(get_next_line(fd2, &line), line), "#    By: emamenko <emamenko@student.42.fr>          +#+  +:+       +#+         #")
+		expect("3:\t", wrapper_char(get_next_line(fd2, &line), line), "#                                                         :::      ::::::::    #"),
+		expect("4:\t", wrapper_char(get_next_line(fd2, &line), line), "#    test2.txt                                          :+:      :+:    :+:    #"),
+		expect("5:\t", wrapper_char(get_next_line(fd2, &line), line), "#                                                     +:+ +:+         +:+      #")
 		);
 
 	fd3 = open("gnl_tests/test3.txt", O_RDONLY);
-	all += skip_run_test(test_description("test3.txt"), &count,
+	all += run_test(test_description("test3.txt"), &count,
 		expect("1:\t", wrapper_char(get_next_line(fd3, &line), line), "1"),
 		expect("2:\t", wrapper_char(get_next_line(fd3, &line), line), "2")
 		);
 
-	all += skip_run_test(test_description("test1.txt after test3"), &count,
+	all += run_test(test_description("test1.txt after test3"), &count,
 		expect("4:\t", wrapper_char(get_next_line(fd1, &line), line), "FINISH!"),
 		expect("5:\t", wrapper_char(get_next_line(fd1, &line), line), "cool")
 		);
 
-	all += skip_run_test(test_description("test3.txt after test1"), &count,
+	all += run_test(test_description("test3.txt after test1"), &count,
 		expect("3:\t", wrapper_char(get_next_line(fd3, &line), line), "3"),
 		expect("4:\t", wrapper_char(get_next_line(fd3, &line), line), "4")
+		);
+
+	fd4 = open("gnl_tests/test4.txt", O_RDONLY);
+	all += run_test(test_description("test4.txt"), &count,
+		expect("line w/o \\n:", wrapper_char(get_next_line(fd4, &line), line), "012345678")
 		);
 
 	finish_test_block(count, all);
