@@ -6,7 +6,7 @@
 /*   By: emamenko <emamenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 20:53:48 by emamenko          #+#    #+#             */
-/*   Updated: 2019/02/18 13:52:41 by emamenko         ###   ########.fr       */
+/*   Updated: 2019/02/18 16:02:19 by emamenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,8 +239,21 @@ char		*make_string(char *src)
 	return (dest);
 }
 
-char		*wrapper_char_1(char *value, ...)
+char		*wrapper_char_1(int argc, ...)
 {
+	va_list	arg_ptr;
+	int		i;
+	char	*value;
+
+	va_start(arg_ptr, argc);
+	i = 0;
+	while (i < argc -1)
+	{
+		va_arg(arg_ptr, int);
+		i += 1;
+	}
+	value = va_arg(arg_ptr, char *);
+	va_end(arg_ptr);
 	return (value);
 }
 

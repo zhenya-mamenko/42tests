@@ -56,6 +56,14 @@ int			test_mine(void)
 		expect("flat:\t", ft_flatten_tlist(el2), "Begin of list\nTest list\n")
 		);
 
+	all += run_test(test_description("ft_strchri"), &count,
+		expect("start:", ft_strchri("123", '1'), 0),
+		expect("end:\t", ft_strchri("12 34", '4'), 4),
+		expect("middle:", ft_strchri("hsjdhf shjdsf", 'd'), 3),
+		expect("zero:\t", ft_strchri("12 34", '\0'), 5),
+		expect("none:\t", ft_strchri("   12 34  qw   wer   ", 'X'), -1)
+		);
+
 	finish_test_block(count, all);
 	g_all_tests_count += all;
 	return (count);

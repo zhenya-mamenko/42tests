@@ -1,31 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile_gnl                                       :+:      :+:    :+:    #
+#    test2.txt                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: emamenko <emamenko@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/02/11 13:54:51 by emamenko          #+#    #+#              #
-#    Updated: 2019/02/18 14:08:00 by emamenko         ###   ########.fr        #
+#    Created: 2019/02/18 16:15:48 by emamenko          #+#    #+#              #
+#    Updated: 2019/02/18 16:21:37 by emamenko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY:		$(NAME) all clean fclean re
-
-NAME	=	test_suite
-FLAGS	=	-Wall -Werror -Wextra -o $(NAME) -ltest -L. -lft -L$(PATH) -I$(PATH)
-SOURCES	=	test_gnl.c test_gnl_files.c \
-			$(PATH)/get_next_line.c
-
-all:	$(NAME)
-
-$(NAME):
-			gcc $(FLAGS) $(SOURCES)
-
-clean:
-			echo "noop"
-
-fclean:		clean
-			rm -f $(NAME)
-
-re: 		fclean all
