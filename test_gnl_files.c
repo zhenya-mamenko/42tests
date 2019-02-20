@@ -50,7 +50,7 @@ int			test_files(void)
 
 	fd4 = open("gnl_tests/test4.txt", O_RDONLY);
 	all += run_test(test_description("test4.txt"), &count,
-		expect("line w/o \\n:", wrapper_char(get_next_line(fd4, &line), line), "012345678")
+		expect("line w/o \\n:", wrapper_char(get_next_line(fd4, &line), line), "}")
 		);
 
 	finish_test_block(count, all);

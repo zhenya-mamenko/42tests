@@ -98,11 +98,12 @@ int	test_part1(void)
 	all += run_test(test_description("strlcat"), &count,
 		expect("0:\t", ft_strlcat(a1, "Z", 0), strlcat(a2, "Z", 0)),
 		expect("0=:\t", a1, a2),
-		expect("0v:\t", wrapper_char(ft_strlcat(a1, "X", 0), a1),
-			wrapper_char(strlcat(a2, "X", 0), a2)),
-		expect("5:\t", ft_strlcat(a1, "qwerty", 8), strlcat(a2, "qwerty", 8)),
-		expect("5v:\t", wrapper_char(ft_strlcat(a1, "poi", 10), a1),
-			wrapper_char(strlcat(a2, "poi", 10), a2))
+		expect("5:\t", ft_strlcat(a1, "X", 5), strlcat(a2, "X", 5)),
+		expect("5=:\t", a1, a2),
+		expect("8:\t", ft_strlcat(a1, "qwerty", 8), strlcat(a2, "qwerty", 8)),
+		expect("8=:\t", a1, a2),
+		expect("10:\t", ft_strlcat(a1, "qwerty", 10), strlcat(a2, "qwerty", 10)),
+		expect("10=:\t", a1, a2)
 		);
 
 	all += run_test(test_description("strchr"), &count,
