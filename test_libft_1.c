@@ -77,8 +77,9 @@ int	test_part1(void)
 		expect("0:\t", ft_strncpy(make_string("ABCDEABCDE"), "12345", 0), strncpy(make_string("ABCDEABCDE"), "12345", 0))
 		);
 
-	memcpy(a1, "123\0", 10);
-	memcpy(a2, "123\0", 10);
+	bzero(a1, 10); bzero(a2, 10);
+	memcpy(a1, "123", 3);
+	memcpy(a2, "123", 3);
 	ft_strcat(a1, "456");
 	strcat(a2, "456");
 	all += run_test(test_description("strcat"), &count,
@@ -93,8 +94,9 @@ int	test_part1(void)
 		expect("10:\t", wrapper_char(ft_strncat(a1, "56789", 10), a1), wrapper_char(strncat(a2, "56789", 10), a2))
 		);
 
-	memcpy(a1, "ABC\0", 4);
-	memcpy(a2, "ABC\0", 4);
+	bzero(a1, 10); bzero(a2, 10);
+	memcpy(a1, "123", 3);
+	memcpy(a2, "123", 3);
 	all += run_test(test_description("strlcat"), &count,
 		expect("0:\t", ft_strlcat(a1, "Z", 0), strlcat(a2, "Z", 0)),
 		expect("0=:\t", a1, a2),
