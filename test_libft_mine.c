@@ -64,6 +64,10 @@ int			test_mine(void)
 		expect("none:\t", ft_strchri("   12 34  qw   wer   ", 'X'), -1)
 		);
 
+	all += run_test(test_description("ft_freeret"), &count,
+		expect("free:", ft_freeret(NULL, 1), 1)
+		);
+
 	finish_test_block(count, all);
 	g_all_tests_count += all;
 	return (count);
