@@ -1,4 +1,4 @@
-PATH_LIBFT=/nfs/2018/e/emamenko/projects/libft
+PATH_LIBFT=libft
 echo "\x1b[1;96mMaking libft...\n"
 PATH_LIBFT=$( echo $PATH_LIBFT | sed -e s\%/$%%g )
 make -s -C $PATH_LIBFT re

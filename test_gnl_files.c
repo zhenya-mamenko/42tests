@@ -1,11 +1,11 @@
 #include "libtest.h"
-#include "libft.h"
+#include "libft/libft.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <string.h>
 #include <unistd.h>
-#include "/nfs/2018/e/emamenko/projects/get_next_line/get_next_line.h"
+#include "get_next_line/get_next_line.h"
 
 int			test_files(void)
 {

@@ -6,14 +6,14 @@
 #    By: emamenko <emamenko@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/11 13:54:51 by emamenko          #+#    #+#              #
-#    Updated: 2019/02/17 06:14:25 by emamenko         ###   ########.fr        #
+#    Updated: 2019/02/25 00:06:30 by emamenko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .PHONY:		$(NAME) all clean fclean re
 
 NAME	=	test_suite
-FLAGS	=	-Wall -Werror -Wextra -o $(NAME) -ltest -L. -lft -L$(PATH) -I$(PATH)
+FLAGS	=	-Wall -Werror -Wextra -o $(NAME) -ltest -L. -lft -L$(APATH) -I$(APATH)
 SOURCES	=	test_libft.c \
 			test_libft_mine.c \
 			test_libft_bonus.c \
@@ -23,7 +23,7 @@ SOURCES	=	test_libft.c \
 all:	$(NAME)
 
 $(NAME):
-			gcc $(FLAGS) $(SOURCES) 
+			gcc $(FLAGS) $(SOURCES)
 
 clean:
 			echo "noop"

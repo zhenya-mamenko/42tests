@@ -6,20 +6,21 @@
 #    By: emamenko <emamenko@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/11 13:54:51 by emamenko          #+#    #+#              #
-#    Updated: 2019/02/18 14:08:00 by emamenko         ###   ########.fr        #
+#    Updated: 2019/02/25 00:07:10 by emamenko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .PHONY:		$(NAME) all clean fclean re
 
 NAME	=	test_suite
-FLAGS	=	-Wall -Werror -Wextra -o $(NAME) -ltest -L. -lft -L$(PATH) -I$(PATH)
+FLAGS	=	-Wall -Werror -Wextra -o $(NAME) -ltest -L. -lft -L$(APATH)/libft -I$(APATH)
 SOURCES	=	test_gnl.c test_gnl_files.c \
-			$(PATH)/get_next_line.c
+			$(APATH)/get_next_line.c
 
 all:	$(NAME)
 
 $(NAME):
+			make -C $(APATH)/libft && make -C $(APATH)/libft clean
 			gcc $(FLAGS) $(SOURCES)
 
 clean:
@@ -27,5 +28,6 @@ clean:
 
 fclean:		clean
 			rm -f $(NAME)
+			make -C $(APATH)/libft fclean
 
 re: 		fclean all

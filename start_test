@@ -1,7 +1,7 @@
 clear
 echo "\n\x1b[1mStart testing: \x1b[4;96m$1\x1b[0m\n"
 make -s re > /dev/null
-make -s --makefile=Makefile_$1 PATH=$2 re > /dev/null
+make -s --makefile=Makefile_$1 APATH=$2 re > /dev/null
 "./test_suite"
 rm test_suite > /dev/null
 make fclean -s
