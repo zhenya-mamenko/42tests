@@ -1,4 +1,4 @@
-#include "/nfs/2018/e/emamenko/projects/ft_printf/ft_printf.h"
+#include "libft/libft.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -7,8 +7,6 @@ int main(void)
 	void	*p;
 
 	system("tabs 10,+35,+40");
-	ft_printf("\n%~s;flcyan;~Start testing ft_printf%~-a~\n\n");
-
 	ft_printf("\n%~s;u;flblue;~Part 1%~-a~\t%~d;u~\tft_printf\tprintf%~-a~\n\n");
 
 	ft_printf("%~d~%%c:\tA%~-a~\t");
@@ -20,9 +18,9 @@ int main(void)
 	printf("%s\n", "42 ft_printf!");
 
 	p = malloc(1);
-	ft_printf("%~d~%%p\t%~-a~\t");
-	ft_printf("%p\t", p);
-	printf("%p\n", p);
+	ft_printf("%~d~%%p:\taddr, NULL%~-a~\t");
+	ft_printf("%p, %p\t", p, NULL);
+	printf("%p, %p\n", p, NULL);
 
 	ft_printf("\n%~s;u;flblue;~Part 2%~-a~\t%~d;u~\tft_printf\tprintf%~-a~\n\n");
 

@@ -1,0 +1,11 @@
+PATH_TO=libft/ft_printf
+echo "\x1b[1;96mMaking libftprintf...\n"
+PATH_TO=$( echo $PATH_TO | sed -e s\%/$%%g )
+make -s -C $PATH_TO re
+if [ -f $PATH_TO/libftprintf.a ]; then
+	./start_test ft_printf $PATH_TO
+else
+	echo "\x1b[1;91mERROR\n\x1b[97m$PATH_TO/libftprintf.a not found!\n"
+fi
+
+

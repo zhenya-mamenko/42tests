@@ -1,0 +1,33 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile_ft_printf                                 :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: emamenko <emamenko@student.42.us.org>      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/02/11 13:54:51 by emamenko          #+#    #+#              #
+#    Updated: 2019/03/07 11:45:33 by emamenko         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+.PHONY:		$(NAME) all clean fclean re
+
+NAME	=	test_suite
+FLAGS	=	-Wall -Werror -Wextra -o $(NAME) -lftprintf -L$(APATH) -I$(APATH)
+SOURCES	=	test_printf.c
+
+all:	$(NAME)
+
+$(NAME):
+			make -C $(APATH)
+			gcc $(FLAGS) $(SOURCES)
+
+clean:
+			make -C $(APATH) clean
+
+fclean:		clean
+			make -C $(APATH) fclean
+			rm -f $(NAME)
+
+re: 		fclean all
+			make -C $(APATH) re
