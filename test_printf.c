@@ -13,14 +13,18 @@ int main(void)
 	ft_printf("%c\t", 'A');
 	printf("%c\n", 'A');
 
-	ft_printf("%~d~%%s:\t42 ft_printf!%~-a~\t");
-	ft_printf("%s\t", "42 ft_printf!");
-	printf("%s\n", "42 ft_printf!");
+	ft_printf("%~d~%%s:\tTest!%~-a~\t");
+	ft_printf("%s\t", "Test!");
+	printf("%s\n", "Test!");
 
 	p = malloc(1);
 	ft_printf("%~d~%%p:\taddr, NULL%~-a~\t");
 	ft_printf("%p, %p\t", p, NULL);
 	printf("%p, %p\n", p, NULL);
+
+	ft_printf("%~d~mixed:\tIt's %%s ver %%d%~-a~\t");
+	ft_printf("It's %s ver %d\t", "ft_printf", 2);
+	printf("It's %s ver %d\n", "ft_printf!", 2);
 
 	ft_printf("\n%~s;u;flblue;~Part 2%~-a~\t%~d;u~\tft_printf\tprintf%~-a~\n\n");
 
@@ -66,10 +70,6 @@ int main(void)
 	ft_printf("%f\t", 1.42);
 	printf("%f\n", 1.42);
 
-	ft_printf("%~d~%%.0f:\t42.21%~-a~\t");
-	ft_printf("%.0f\t", 42.21);
-	printf("%.0f\n", 42.21);
-
 	ft_printf("%~d~%%f:\t0.42422121%~-a~\t");
 	ft_printf("%f\t", 0.42422121);
 	printf("%f\n", 0.42422121);
@@ -77,10 +77,6 @@ int main(void)
 	ft_printf("%~d~%%f:\t0.0%~-a~\t");
 	ft_printf("%f\t", 0.0);
 	printf("%f\n", 0.0);
-
-	ft_printf("%~d;fred~%%.f:\t0.0%~-a~\t");
-	ft_printf("%.f\t", 0.0);
-	printf("%.f\n", 0.0);
 
 	ft_printf("%~d~%%lf:\t214242.422121%~-a~\t");
 	ft_printf("%lf\t", 214242.212142);
@@ -130,9 +126,17 @@ int main(void)
 	ft_printf("%.6d\t", 4242);
 	printf("%.6d\n", 4242);
 
+	ft_printf("%~d~%%.0f:\t42.21%~-a~\t");
+	ft_printf("%.0f\t", 42.21);
+	printf("%.0f\n", 42.21);
+
 	ft_printf("%~d~%%.3f:\t4242.2121%~-a~\t");
 	ft_printf("%.3f\t", 4242.2121);
 	printf("%.3f\n", 4242.2121);
+
+	ft_printf("%~d;fred~%%.f:\t0.0%~-a~\t");
+	ft_printf("%.f\t", 0.0);
+	printf("%.f\n", 0.0);
 
 	ft_printf("%~d;fred~%%-  8.5d:\t2121%~-a~\t");
 	ft_printf("%-  8.5d|\t", 2121);
@@ -189,4 +193,6 @@ int main(void)
 	ft_printf("%~s;u;bred;flcyan;~Col%~flgreen;blblue;-s;-u~ors%~-a~\n");
 
 	ft_printf("\n");
+
+	free(p);
 }
