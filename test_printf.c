@@ -82,6 +82,10 @@ int main(void)
 	ft_printf("%f\t", 0.0);
 	printf("%f\n", 0.0);
 
+	ft_printf("%~d~%%.5f:\t0.123456789%~-a~\t");
+	ft_printf("%.5f\t", 0.123456789);
+	printf("%.5f\n", 0.123456789);
+
 	ft_printf("%~d~%%lf:\t214242.212142%~-a~\t");
 	ft_printf("%lf\t", 214242.212142);
 	printf("%lf\n", 214242.212142);
