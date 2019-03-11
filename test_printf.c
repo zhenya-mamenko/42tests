@@ -26,6 +26,10 @@ int main(void)
 	ft_printf("It's %s ver %d\t", "ft_printf", 2);
 	printf("It's %s ver %d\n", "ft_printf!", 2);
 
+	ft_printf("%~d~%%c %%d %%c:\tC 2121 D%~-a~\t");
+	ft_printf("%c %d %c\t", 'C', 2121, 'D');
+	printf("%c %d %c\n", 'C', 2121, 'D');
+
 	ft_printf("\n%~s;u;flblue;~Part 2%~-a~\t%~d;u~\tft_printf\tprintf%~-a~\n\n");
 
 	ft_printf("%~d~%%i:\t-4242%~-a~\t");
