@@ -1,4 +1,4 @@
-#include "libft/libft.h"
+#include "libft/ft_printf/ft_printf.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -78,7 +78,7 @@ int main(void)
 	ft_printf("%f\t", 0.0);
 	printf("%f\n", 0.0);
 
-	ft_printf("%~d~%%lf:\t214242.422121%~-a~\t");
+	ft_printf("%~d~%%lf:\t214242.212142%~-a~\t");
 	ft_printf("%lf\t", 214242.212142);
 	printf("%lf\n", 214242.212142);
 
@@ -106,7 +106,7 @@ int main(void)
 	ft_printf("% 6d\t", 4242);
 	printf("% 6d\n", 4242);
 
-	ft_printf("%~d~%%-5d|:\t4242%~-a~\t");
+	ft_printf("%~d~%%-5d:\t4242%~-a~\t");
 	ft_printf("%-5d|\t", 4242);
 	printf("%-5d|\n", 4242);
 
@@ -130,33 +130,49 @@ int main(void)
 	ft_printf("%.0f\t", 42.21);
 	printf("%.0f\n", 42.21);
 
-	ft_printf("%~d~%%.3f:\t4242.2121%~-a~\t");
-	ft_printf("%.3f\t", 4242.2121);
-	printf("%.3f\n", 4242.2121);
+	ft_printf("%~d~%%-15.3f:\t-4242.2121%~-a~\t");
+	ft_printf("%-15.3f|\t", -4242.2121);
+	printf("%-15.3f|\n", -4242.2121);
 
-	ft_printf("%~d;fred~%%.f:\t0.0%~-a~\t");
+	ft_printf("%~d~%%+5.3f:\t21.42%~-a~\t");
+	ft_printf("%+5.3f|\t", 21.42);
+	printf("%+5.3f|\n", 21.42);
+
+	ft_printf("%~d~%% 8.1f:\t21.42%~-a~\t");
+	ft_printf("% 8.1f|\t", 21.42);
+	printf("% 8.1f|\n", 21.42);
+
+	ft_printf("%~d~%%.f:\t0.0%~-a~\t");
 	ft_printf("%.f\t", 0.0);
 	printf("%.f\n", 0.0);
 
-	ft_printf("%~d;fred~%%-  8.5d:\t2121%~-a~\t");
-	ft_printf("%-  8.5d|\t", 2121);
-	printf("%-  8.5d|\n", 2121);
-
-	ft_printf("%~d;fred~%%.p:\tNULL%~-a~\t");
+	ft_printf("%~d~%%.p:\tNULL%~-a~\t");
 	ft_printf("|%.p|\t", NULL);
 	printf("|%.p|\n", NULL);
 
-	ft_printf("%~d;fred~%%4.s:\t42%~-a~\t");
+	ft_printf("%~d~%%4.s:\t42%~-a~\t");
 	ft_printf("|%4.s|\t", "42");
 	printf("|%4.s|\n", "42");
 
-	ft_printf("%~d;fred~%%.3%%:\t%~-a~\t");
+	ft_printf("%~d~%%.3%%:\t%~-a~\t");
 	ft_printf("|%.3%|\t");
 	printf("|%.3%|\n");
 
-	ft_printf("%~d;fred~{%% 03d}:\t0%~-a~\t");
-	ft_printf("{% 03d}\t", 0);
-	printf("{% 03d}\n", 0);
+	ft_printf("%~d~%%3%%:\t%~-a~\t");
+	ft_printf("|%3%|\t");
+	printf("|%3%|\n");
+
+	ft_printf("%~d~%% 03d:\t0%~-a~\t");
+	ft_printf("% 03d\t", 0);
+	printf("% 03d\n", 0);
+
+	ft_printf("%~d~%% 04i:\t0%~-a~\t");
+	ft_printf("% 04i\t", -42);
+	printf("% 04i\n", -42);
+
+	ft_printf("%~d~%%- 8.5d:\t2121%~-a~\t");
+	ft_printf("%- 8.5d|\t", 2121);
+	printf("%- 8.5d|\n", 2121);
 
 	ft_printf("\n%~s;u;flblue;~Part 6 (bonus)%~-a~%~d;u~\tft_printf\tprintf%~-a~\n\n");
 
@@ -190,7 +206,9 @@ int main(void)
 	printf("%zX\n", 123456789L);
 
 	ft_printf("%~d~%%~:\text format%~-a~\t");
-	ft_printf("%~s;u;bred;flcyan;~Col%~flgreen;blblue;-s;-u~ors%~-a~\n");
+	ft_printf("%~bred;flcyan;~Col%~flgreen;blblue;-u~ors%~-a~, %~s;fwhite~bold, %~d~dim%~-a~, and %~-d;flcyan;u~underline%~-a~.\n");
+
+	ft_printf("\n%~s;flgreen~and:%~fwhite~ work with buffer, fd, and sprintf.%~-a~\n");
 
 	ft_printf("\n");
 
